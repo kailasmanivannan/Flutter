@@ -24,6 +24,7 @@ class Buttons extends StatelessWidget {
       mainAxisSpacing: 2,
       crossAxisSpacing: 0,
       children: [
+
         buildElevatedButton(() => {pressedRef('c')}, 'C'),
 
         //TODO: Refactor all the widgets below
