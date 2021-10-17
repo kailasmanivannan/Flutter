@@ -10,6 +10,9 @@ class Buttons extends StatelessWidget {
       mainAxisSpacing: 2,
       crossAxisSpacing: 0,
       children: [
+        
+        //TODO: Refactor button widgets
+        
         ElevatedButton(
           onPressed: () => {pressedRef('c')},
           child: Text('C',style:TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
