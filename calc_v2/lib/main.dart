@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'buttons.dart';
 import 'package:math_expressions/math_expressions.dart';
+
 void main() {
   runApp(Calc());
 }
@@ -13,26 +14,34 @@ class Calc extends StatefulWidget {
 }
 
 class CalcState extends State<Calc> {
-  var stackDisplay ='';
+  var stackDisplay = '';
   var result = '';
-  void theAnswer(){
-    Parser p = Parser(); 
-    Expression exp = p.parse(stackDisplay); 
-    ContextModel cm = ContextModel(); 
-    double eval = exp.evaluate(EvaluationType.REAL, cm); 
+  void theAnswer() {
+    Parser p = Parser();
+    Expression exp = p.parse(stackDisplay);
+    ContextModel cm = ContextModel();
+    double eval = exp.evaluate(EvaluationType.REAL, cm);
     setState(() {
-      result = eval.toString(); 
+      result = eval.toString();
     });
   }
 
-  void buttonPressed(String a){
-    switch(a){
-      case 'c': setState(() {stackDisplay='';result='';});
-                break;
-      case 'DEL': setState(() {stackDisplay=stackDisplay.substring(0, stackDisplay.length - 1);});
-                  break;
-      case '=': theAnswer();
-                break;
+  void buttonPressed(String a) {
+    switch (a) {
+      case 'c':
+        setState(() {
+          stackDisplay = '';
+          result = '';
+        });
+        break;
+      case 'DEL':
+        setState(() {
+          stackDisplay = stackDisplay.substring(0, stackDisplay.length - 1);
+        });
+        break;
+      case '=':
+        theAnswer();
+        break;
       case '0':
       case '1':
       case '2':
@@ -48,65 +57,71 @@ class CalcState extends State<Calc> {
       case '-':
       case '*':
       case '/':
-      case '%': setState(() {stackDisplay+=a;});
-                break;
+      case '%':
+        setState(() {
+          stackDisplay += a;
+        });
+        break;
     }
-  
-
   }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
+        debugShowCheckedModeBanner: false,
         home: Scaffold(
           backgroundColor: Colors.black,
-      appBar: AppBar(
-        title: Text('calculator'),
-      ),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            //flex: 1,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Container(
-                  child: Text(
-                    '$result',
-                    style: TextStyle(
-                      backgroundColor: Colors.black,
-                      color: Colors.white,
-                      fontSize: 50,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  color: Colors.black,
-                  padding: EdgeInsets.all(20.0),
-                  alignment: Alignment.centerRight,
-                ),
-                Container(
-                  padding: EdgeInsets.all(20.0),
-                  alignment: Alignment.centerRight,
-                  color: Colors.black, 
-                  child: Text(
-                    '$stackDisplay',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                )
-              ],
-            ),
+          appBar: AppBar(
+            title: Text('calculator'),
           ),
-          Expanded(
-            child: Buttons(buttonPressed),
-            flex: 3,
-          )
-        ],
-      ),
-    ));
+          body: Column(
+            children: <Widget>[
+              Expanded(
+                //flex: 1,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Expanded(
+                      child: Container(
+                        child: Text(
+                          '$result',
+                          style: TextStyle(
+                            backgroundColor: Colors.black,
+                            color: Colors.white,
+                            fontSize: 50,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        color: Colors.black,
+                        padding: EdgeInsets.all(20.0),
+                        alignment: Alignment.centerRight,
+                      ),
+                    ),
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.all(20.0),
+                        alignment: Alignment.centerRight,
+                        color: Colors.black,
+                        child: Text(
+                          '$stackDisplay',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Buttons(buttonPressed),
+                flex: 3,
+              )
+            ],
+          ),
+        ));
   }
 }
